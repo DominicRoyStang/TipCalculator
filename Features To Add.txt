@@ -1,0 +1,12 @@
+- Spinner for tip and number of payers. If they click on the number, they may edit it with floating point numbers.
+- Storage (Key-value sets or SQL Database) + implement SQLLiteOpenHelper to use API
+
+
+Key-value:
+getSharedPreferences(): preferences for all activities (use this)
+getPreferences(): preferences for individual activities
+
+SharedPreferences sharedPref = context.getSharedPreferences("NameOfItem", this.MODE_PRIVATE);
+(more info in Tutorial 2 slides)
+
+OnOptionsItemSelected used for the action bar

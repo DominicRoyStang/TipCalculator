@@ -4,6 +4,7 @@
     <string name="dollar_sign">$</string>
     <string name="euro_sign">€</string>
     <string name="pound_sign">#</string>
+    <string name="percent_sign">%</string>
     <string name="title_activity_settings2">Settings</string>
 
     <!-- Strings related to Settings -->

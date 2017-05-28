@@ -3,6 +3,7 @@ package com.uottawa.tipcalculator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.settingsmenu_layout);
 
         RelativeLayout defaultTip = (RelativeLayout) findViewById(R.id.DefaultTip);
         final int[] attrs = new int[]{R.attr.selectableItemBackground};

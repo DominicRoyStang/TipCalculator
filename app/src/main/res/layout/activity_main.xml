@@ -42,7 +42,7 @@
                         android:id="@+id/TipCalculatorText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/tipCalculatorText"
+                        android:text="@string/app_name_spaced"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="36sp"
@@ -50,7 +50,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/tipCalculatorText" />
+                        tools:text="@string/app_name_spaced" />
 
                     <ImageView
                         android:id="@+id/imageView"

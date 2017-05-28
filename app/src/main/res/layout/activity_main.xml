@@ -113,7 +113,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/DefaultTipText"
+                            android:id="@+id/CurrencyText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -130,7 +130,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/DefaultTipText"
+                            android:layout_toRightOf="@+id/CurrencyText"
                             android:ems="6"
                             android:hint="Enter the tip here"
                             android:inputType="numberDecimal"

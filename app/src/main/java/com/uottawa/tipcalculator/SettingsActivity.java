@@ -22,15 +22,23 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        // Set up Settings ActionBar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.settingsmenu_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Find our "layout buttons"
         RelativeLayout defaultTip = (RelativeLayout) findViewById(R.id.DefaultTip);
+        RelativeLayout currency = (RelativeLayout) findViewById(R.id.Currency);
+
+        // Create background
         final int[] attrs = new int[]{R.attr.selectableItemBackground};
         final TypedArray typedArray = this.obtainStyledAttributes(attrs);
         final int backgroundResource = typedArray.getResourceId(0, 0);
+
+        // Apply background to our "layout buttons" (for when they are pressed)
         defaultTip.setBackgroundResource(backgroundResource);
+        currency.setBackgroundResource(backgroundResource);
         typedArray.recycle();
 
         /*
@@ -48,13 +56,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.CalculateButton:
-                Toast.makeText(getApplicationContext(), "You pressed the calculate button", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.DefaultTip:
-                Toast.makeText(getApplicationContext(), "You pressed the default tip view", Toast.LENGTH_SHORT).show();
                 displayTipDialog(v);
                 break;
+            case R.id.Currency:
+                Toast.makeText(getApplicationContext(), "You pressed the currency view", Toast.LENGTH_SHORT).show();
+                break;
+
         }
     }
 

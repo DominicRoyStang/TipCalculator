@@ -24,6 +24,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.settingsmenu_layout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RelativeLayout defaultTip = (RelativeLayout) findViewById(R.id.DefaultTip);
         final int[] attrs = new int[]{R.attr.selectableItemBackground};

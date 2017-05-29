@@ -56,7 +56,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.Currency:
                 displayCurrencyDialog(view);
-                Toast.makeText(getApplicationContext(), "You pressed the currency view", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

@@ -14,7 +14,8 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryLight"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="8dp"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,32 +40,32 @@
                     android:padding="15dp">
 
                     <TextView
-                        android:id="@+id/TipCalculatorText"
+                        android:id="@+id/EnterDataTitleText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/app_name_spaced"
+                        android:text="Enter Data"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="36sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/app_name_spaced" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/imageView"
+                    <TextView
+                        android:id="@+id/textView"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/ic_store_48_dp" />
+                        android:layout_height="wrap_content"
+                        android:text="The bill will be automatically generated in the card below"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorSecondaryText" />
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="20dp" />
 
                     <View
-                        android:id="@+id/Separator1"
+                        android:id="@+id/Separator3"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />
@@ -112,8 +113,218 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/TipRelativeLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:clickable="true"
+                            android:onClick="onClick"
+                            android:layout_weight="100"
+                            android:gravity="left">
+
+                            <TextView
+                                android:id="@+id/TipText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text="Tip:"
+                                android:textColor="@color/colorPrimaryText"
+                                android:textSize="24sp" />
+
+                            <TextView
+                                android:id="@+id/TipValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/TipText"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text="15 %"
+                                android:textColor="@color/colorPrimaryText"
+                                android:textSize="24sp" />
+
+                        </RelativeLayout>
+
+                        <ImageButton
+                            android:id="@+id/SuggestTipButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="12dp"
+                            app:srcCompat="@drawable/ic_info_black_24dp" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <RelativeLayout
+                        android:id="@+id/PayersRelativeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="100"
+                        android:gravity="left">
+
                         <TextView
-                            android:id="@+id/CurrencyText"
+                            android:id="@+id/NumberOfPayersText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:paddingLeft="5dp"
+                            android:text="Payers:"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/PayersValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/NumberOfPayersText"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="1"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="24sp" />
+
+                        <ImageView
+                            android:id="@+id/PersonImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/PayersValue"
+                            android:padding="12dp"
+                            app:srcCompat="@drawable/ic_person_black_24dp" />
+
+                    </RelativeLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <View
+                        android:id="@+id/Separator4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/ColorDivider" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/background_light"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/BillTitleText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bill"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="36sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text='The bill is automatically updated using information from the "Enter Data" card'
+                        android:textAlignment="center"
+                        android:textColor="@color/colorSecondaryText" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <View
+                        android:id="@+id/Separator1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/ColorDivider" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/BillText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:paddingLeft="5dp"
+                            android:text="Bill:"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="24sp" />
+
+                        <EditText
+                            android:id="@+id/BillEditText2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/BillText"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:freezesText="true"
+                            android:hint="Enter the bill amount here"
+                            android:inputType="numberDecimal"
+                            android:text="$0.00"
+                            android:textSize="24sp" />
+
+                    </RelativeLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/CurrencyText2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -126,25 +337,16 @@
                             android:textSize="24sp" />
 
                         <EditText
-                            android:id="@+id/TipEditText"
+                            android:id="@+id/TipEditText2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/CurrencyText"
+                            android:layout_toRightOf="@+id/TipText"
                             android:ems="6"
                             android:hint="Enter the tip here"
                             android:inputType="numberDecimal"
                             android:text="15.0 %"
                             android:textSize="24sp" />
-
-                        <Button
-                            android:id="@+id/SuggestTipButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:background="@color/colorPrimaryLight"
-                            android:text="Suggest Tip" />
 
                     </RelativeLayout>
 
@@ -158,7 +360,7 @@
                         android:gravity="center_vertical|center_horizontal">
 
                         <TextView
-                            android:id="@+id/NumberOfPayersText"
+                            android:id="@+id/NumberOfPayersText2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -170,7 +372,7 @@
                             android:textSize="24sp" />
 
                         <EditText
-                            android:id="@+id/PayersEditText"
+                            android:id="@+id/PayersEditText2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@+id/NumberOfPayersText"
@@ -195,14 +397,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp" />
 
-                    <Button
-                        android:id="@+id/CalculateButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorPrimaryLight"
-                        android:onClick="onClick"
-                        android:text="Calculate"
-                        android:textColor="@color/colorPrimaryText" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 

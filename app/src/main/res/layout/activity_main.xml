@@ -65,7 +65,7 @@
                         android:layout_height="20dp" />
 
                     <View
-                        android:id="@+id/Separator3"
+                        android:id="@+id/DataSeparator1"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />
@@ -109,11 +109,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp" />
 
-                    <RelativeLayout
+                    <View
+                        android:id="@+id/DataSeparator2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </RelativeLayout>
+                        android:layout_height="1dp"
+                        android:layout_weight="100"
+                        android:background="@color/ColorDivider" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -123,12 +124,14 @@
                         <RelativeLayout
                             android:id="@+id/TipRelativeLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:clickable="true"
-                            android:onClick="onClick"
                             android:layout_weight="100"
-                            android:gravity="left">
+                            android:clickable="true"
+                            android:gravity="left"
+                            android:onClick="onClick"
+                            android:paddingBottom="20dp"
+                            android:paddingTop="20dp">
 
                             <TextView
                                 android:id="@+id/TipText"
@@ -162,6 +165,7 @@
                             android:id="@+id/SuggestTipButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:padding="12dp"
@@ -169,9 +173,12 @@
 
                     </LinearLayout>
 
-                    <Space
+                    <View
+                        android:id="@+id/DataSeparator3"
                         android:layout_width="match_parent"
-                        android:layout_height="20dp" />
+                        android:layout_height="1dp"
+                        android:layout_weight="100"
+                        android:background="@color/ColorDivider" />
 
                     <RelativeLayout
                         android:id="@+id/PayersRelativeLayout"
@@ -179,7 +186,9 @@
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_weight="100"
-                        android:gravity="left">
+                        android:gravity="left"
+                        android:paddingBottom="20dp"
+                        android:paddingTop="20dp">
 
                         <TextView
                             android:id="@+id/NumberOfPayersText"
@@ -216,12 +225,8 @@
 
                     </RelativeLayout>
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp" />
-
                     <View
-                        android:id="@+id/Separator4"
+                        android:id="@+id/DataSeparator4"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />

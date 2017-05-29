@@ -9,9 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,28 +45,19 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         currency.setBackgroundResource(backgroundResource);
         typedArray.recycle();
 
-        /*
-        defaultTip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "You pressed the default tip view", Toast.LENGTH_SHORT).show();
-            }
-        });
-        */
-
     }
 
 
     @Override
-    public void onClick(View v) {
-        switch(v.getId()){
+    public void onClick(View view) {
+        switch(view.getId()){
             case R.id.DefaultTip:
-                displayTipDialog(v);
+                displayTipDialog(view);
                 break;
             case R.id.Currency:
+                displayCurrencyDialog(view);
                 Toast.makeText(getApplicationContext(), "You pressed the currency view", Toast.LENGTH_SHORT).show();
                 break;
-
         }
     }
 
@@ -130,7 +125,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 //TODO
                 TextView tipPercentText = (TextView) findViewById(R.id.TipPercentText);
                 tipPercentText.setText(m_Text + " " + getResources().getString(R.string.percent_sign));
-                Toast.makeText(getApplicationContext(), "You entered " + m_Text, Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -143,17 +137,78 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         builder.show();
     }
 
+    private void displayCurrencyDialog(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select the currency");
+        //builder.setCustomTitle()
 
-    /*
-    private class ClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.DefaultTip:
-                Toast.makeText(getApplicationContext(), "You pressed the default tip view", Toast.LENGTH_SHORT).show();
-                break;
+        // Create White Space between Title and RadioButtons
+        ViewGroup.LayoutParams spaceParams = new ViewGroup.LayoutParams
+                (ViewGroup.LayoutParams.MATCH_PARENT, 20);
+        final Space space = new Space(this);
+        space.setLayoutParams(spaceParams);
+
+        // Set up the RadioButtons
+        final RadioButton dollarRadioButton = new RadioButton(this);
+        dollarRadioButton.setId(R.id.radio_button_dollar);
+        dollarRadioButton.setText(getResources().getString(R.string.dollar_sign));
+        dollarRadioButton.setTextSize(19);
+        //dollarRadioButton.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        final RadioButton euroRadioButton = new RadioButton(this);
+        euroRadioButton.setId(R.id.radio_button_euro);
+        euroRadioButton.setText(getResources().getString(R.string.euro_sign));
+        euroRadioButton.setTextSize(19);
+        //euroRadioButton.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        final RadioButton poundRadioButton = new RadioButton(this);
+        poundRadioButton.setId(R.id.radio_button_pound);
+        poundRadioButton.setText(getResources().getString(R.string.pound_sign));
+        poundRadioButton.setTextSize(19);
+        //poundRadioButton.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        // Set up the RadioGroup
+        final RadioGroup radioGroup = new RadioGroup(this);
+        RadioGroup.LayoutParams params = new RadioGroup.LayoutParams
+                (RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.MATCH_PARENT);
+        radioGroup.setOrientation(RadioGroup.VERTICAL);
+        radioGroup.setGravity(Gravity.CENTER);
+        radioGroup.setLayoutParams(params);
+        radioGroup.addView(space);
+        radioGroup.addView(dollarRadioButton);
+        radioGroup.addView(euroRadioButton);
+        radioGroup.addView(poundRadioButton);
+
+        // Set the View to the RadioGroup
+        builder.setView(radioGroup);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //TODO
+                TextView currencySymbolText = (TextView) findViewById(R.id.CurrencySymbolText);
+                switch(radioGroup.getCheckedRadioButtonId()){
+                    case R.id.radio_button_dollar:
+                        currencySymbolText.setText(getResources().getString(R.string.dollar_sign));
+                        break;
+                    case R.id.radio_button_euro:
+                        currencySymbolText.setText(getResources().getString(R.string.euro_sign));
+                        break;
+                    case R.id.radio_button_pound:
+                        currencySymbolText.setText(getResources().getString(R.string.pound_sign));
+                        break;
+                    default:
+                        Toast.makeText(getApplicationContext(), "An error occurred. Currency not changed.", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
-        }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
-    */
 }

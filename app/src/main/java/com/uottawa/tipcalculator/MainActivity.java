@@ -3,11 +3,13 @@ package com.uottawa.tipcalculator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setCustomView(R.layout.mainmenu_layout);
 
         // Find our "Layout Buttons"
+        RelativeLayout billLayoutButton = (RelativeLayout) findViewById(R.id.BillRelativeLayout);
         RelativeLayout tipLayoutButton = (RelativeLayout) findViewById(R.id.TipRelativeLayout);
         RelativeLayout payersLayoutButton = (RelativeLayout) findViewById(R.id.PayersRelativeLayout);
 
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final int backgroundResource = typedArray.getResourceId(0, 0);
 
         // Apply background to our "layout buttons" (for when they are pressed)
+        billLayoutButton.setBackgroundResource(backgroundResource);
         tipLayoutButton.setBackgroundResource(backgroundResource);
         payersLayoutButton.setBackgroundResource(backgroundResource);
         typedArray.recycle();
@@ -55,17 +59,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch(view.getId()){
-
+            case R.id.BillRelativeLayout:
+                displayBillDialog();
+                Toast.makeText(getApplicationContext(), "BillRelativeLayout pressed", Toast.LENGTH_SHORT).show();
+            break;
             case R.id.TipRelativeLayout:
                 displayTipDialog();
                 break;
             case R.id.SuggestTipButton:
-                Toast.makeText(getApplicationContext(), "Suggest tip button pressed", Toast.LENGTH_SHORT).show();
                 displaySuggestTipDialog();
                 break;
             case R.id.PayersRelativeLayout:
                 displayPayersDialog();
-                Toast.makeText(getApplicationContext(), "PayersRelativeLayout pressed", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -90,6 +95,69 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         return true;
+    }
+
+    private void displayBillDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Set the total price of the bill");
+        //builder.setCustomTitle()
+
+        // Set up TextView
+        final TextView currencySymbolText = new TextView(this);
+        currencySymbolText.setText(getResources().getString(R.string.dollar_sign));
+        currencySymbolText.setTextSize(19);
+        currencySymbolText.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryText));
+
+        // Set up EditText
+        final EditText billText = new EditText(this);
+        billText.setText("0.00");
+        billText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        billText.setTextSize(19);
+
+        // Set up the EditText's layout parameters
+        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        textParams.gravity = Gravity.CENTER;
+        billText.setLayoutParams(textParams);
+
+        // Set up the LinearLayout
+        LinearLayout layout = new LinearLayout(this);
+        layout.setPadding(40, 10, 40, 10);
+
+        // Set up the LinearLayout's layout parameters
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.setGravity(Gravity.CENTER);
+        layout.setLayoutParams(params);
+
+        // Add the EditText and TextView to the LinearLayout
+        layout.addView(currencySymbolText);
+        layout.addView(billText);
+
+        // Set the View to the LinearLayout
+        builder.setView(layout);
+
+        //TextView defaultTip = (TextView) findViewById(R.id.TipPercentText);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String m_Text = billText.getText().toString();
+                //TODO
+                TextView billValueText = (TextView) findViewById(R.id.BillValue);
+                billValueText.setText(m_Text);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     private void displayTipDialog(){
@@ -179,9 +247,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ratingBar.setLayoutParams(ratingBarParams);
 
         //Set up TextView
-        TextView percentText = new TextView(this);
+        final TextView percentText = new TextView(this);
         percentText.setText(getResources().getString(R.string.percent_sign));
         percentText.setTextSize(19);
+        percentText.setText("Recommended tip: " + ratingBar.getRating() + " " + getResources().getString(R.string.percent_sign));
 
         // Set up the TextView's layout parameters
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams
@@ -195,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Set up the LinearLayout's layout parameters
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.setOrientation(LinearLayout.VERTICAL);
         layout.setGravity(Gravity.CENTER);
         layout.setLayoutParams(params);
 
@@ -206,7 +275,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Set the View to the LinearLayout
         builder.setView(layout);
 
-        //TextView defaultTip = (TextView) findViewById(R.id.TipPercentText);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                percentText.setText("Recommended tip: " + ratingBar.getRating() + " " + getResources().getString(R.string.percent_sign));
+            }
+        });
 
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -215,6 +289,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 float m_Text = ratingBar.getRating();
                 //TODO
                 TextView tipPercentText = (TextView) findViewById(R.id.TipValue);
+                percentText.setText("Recommended tip: " + m_Text + " " + getResources().getString(R.string.percent_sign));
                 Toast.makeText(getApplicationContext(), m_Text + " Stars", Toast.LENGTH_SHORT).show();
                 //tipPercentText.setText(m_Text + " " + getResources().getString(R.string.percent_sign));
             }

@@ -25,7 +25,7 @@
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:cardCornerRadius="3dp"
                 app:cardElevation="4dp"
                 app:cardUseCompatPadding="true">
@@ -71,8 +71,12 @@
                         android:background="@color/ColorDivider" />
 
                     <RelativeLayout
+                        android:id="@+id/BillRelativeLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:minHeight="48dp"
+                        android:onClick="onClick">
 
                         <TextView
                             android:id="@+id/BillText"
@@ -84,23 +88,31 @@
                             android:paddingBottom="20dp"
                             android:paddingLeft="5dp"
                             android:paddingTop="20dp"
-                            android:text="Bill:"
+                            android:text="Bill: "
                             android:textColor="@color/colorPrimaryText"
-                            android:textSize="24sp" />
+                            android:textSize="20sp" />
 
-                        <EditText
-                            android:id="@+id/BillEditText"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/CurrencySymbolText"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@+id/BillText"
+                            android:text="$ "
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/BillValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/CurrencySymbolText"
                             android:layout_weight="1"
-                            android:ems="10"
-                            android:freezesText="true"
-                            android:hint="Enter the bill amount here"
-                            android:inputType="numberDecimal"
-                            android:text="$0.00"
-                            android:textSize="24sp" />
+                            android:minEms="8"
+                            android:text="0.00"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
 
                     </RelativeLayout>
 
@@ -124,12 +136,13 @@
                             android:layout_weight="100"
                             android:clickable="true"
                             android:gravity="left"
+                            android:minHeight="48dp"
                             android:onClick="onClick">
 
                             <TextView
                                 android:id="@+id/TipText"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerVertical="true"
                                 android:layout_weight="1"
@@ -139,12 +152,12 @@
                                 android:paddingTop="20dp"
                                 android:text="Tip:"
                                 android:textColor="@color/colorPrimaryText"
-                                android:textSize="24sp" />
+                                android:textSize="20sp" />
 
                             <TextView
                                 android:id="@+id/TipValue"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_toRightOf="@+id/TipText"
                                 android:layout_weight="1"
@@ -152,7 +165,7 @@
                                 android:paddingLeft="5dp"
                                 android:text="15 %"
                                 android:textColor="@color/colorPrimaryText"
-                                android:textSize="24sp" />
+                                android:textSize="20sp" />
 
                         </RelativeLayout>
 
@@ -183,8 +196,9 @@
                         android:layout_centerVertical="true"
                         android:layout_weight="100"
                         android:clickable="true"
-                        android:onClick="onClick"
-                        android:gravity="left">
+                        android:gravity="left"
+                        android:minHeight="48dp"
+                        android:onClick="onClick">
 
                         <TextView
                             android:id="@+id/NumberOfPayersText"
@@ -198,12 +212,12 @@
                             android:paddingTop="20dp"
                             android:text="Payers:"
                             android:textColor="@color/colorPrimaryText"
-                            android:textSize="24sp" />
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/PayersValue"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@+id/NumberOfPayersText"
                             android:layout_weight="1"
@@ -211,7 +225,7 @@
                             android:paddingLeft="5dp"
                             android:text="1 "
                             android:textColor="@color/colorPrimaryText"
-                            android:textSize="24sp" />
+                            android:textSize="20sp" />
 
                         <ImageView
                             android:id="@+id/PersonImage"
@@ -234,6 +248,14 @@
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="20dp" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Scroll down to see the full bill"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorSecondaryText" />
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -280,16 +302,13 @@
                         android:layout_height="20dp" />
 
                     <View
-                        android:id="@+id/Separator1"
+                        android:id="@+id/BillSeparator1"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp" />
-
                     <RelativeLayout
+                        android:id="@+id/BillRelativeLayout2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
@@ -300,69 +319,88 @@
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
+                            android:paddingBottom="20dp"
                             android:paddingLeft="5dp"
-                            android:text="Bill:"
+                            android:paddingTop="20dp"
+                            android:text="Bill: "
                             android:textColor="@color/colorPrimaryText"
-                            android:textSize="24sp" />
-
-                        <EditText
-                            android:id="@+id/BillEditText2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/BillText"
-                            android:layout_weight="1"
-                            android:ems="10"
-                            android:freezesText="true"
-                            android:hint="Enter the bill amount here"
-                            android:inputType="numberDecimal"
-                            android:text="$0.00"
-                            android:textSize="24sp" />
-
-                    </RelativeLayout>
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                            android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/CurrencyText2"
+                            android:id="@+id/CurrencySymbolText2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentRight="false"
                             android:layout_centerVertical="true"
-                            android:layout_weight="1"
-                            android:paddingLeft="5dp"
-                            android:text="Tip:"
+                            android:layout_toRightOf="@+id/BillText2"
+                            android:text="$ "
                             android:textColor="@color/colorPrimaryText"
-                            android:textSize="24sp" />
+                            android:textSize="20sp" />
 
-                        <EditText
-                            android:id="@+id/TipEditText2"
-                            android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/BillValue2"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/TipText"
-                            android:ems="6"
-                            android:hint="Enter the tip here"
-                            android:inputType="numberDecimal"
-                            android:text="15.0 %"
-                            android:textSize="24sp" />
+                            android:layout_toRightOf="@+id/CurrencySymbolText2"
+                            android:layout_weight="1"
+                            android:minEms="8"
+                            android:text="0.00"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
 
                     </RelativeLayout>
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp" />
-
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical|center_horizontal">
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/TipRelativeLayout2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="left">
+
+                            <TextView
+                                android:id="@+id/TipText2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:paddingBottom="20dp"
+                                android:paddingLeft="5dp"
+                                android:paddingTop="20dp"
+                                android:text="Tip:"
+                                android:textColor="@color/colorPrimaryText"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:id="@+id/TipValue2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/TipText2"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text="15 %"
+                                android:textColor="@color/colorPrimaryText"
+                                android:textSize="20sp" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/PayersRelativeLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="100"
+                        android:gravity="left">
 
                         <TextView
                             android:id="@+id/NumberOfPayersText2"
@@ -371,32 +409,129 @@
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
+                            android:paddingBottom="20dp"
                             android:paddingLeft="5dp"
-                            android:text="Number of Payers:"
+                            android:paddingTop="20dp"
+                            android:text="Payers:"
                             android:textColor="@color/colorPrimaryText"
-                            android:textSize="24sp" />
+                            android:textSize="20sp" />
 
-                        <EditText
-                            android:id="@+id/PayersEditText2"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/PayersValue2"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/NumberOfPayersText"
-                            android:ems="10"
-                            android:hint="Enter the number of payers here"
-                            android:inputType="number"
-                            android:text="1"
-                            android:textSize="24sp" />
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/NumberOfPayersText2"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="1 "
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:id="@+id/PersonImage2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/PayersValue2"
+                            android:paddingBottom="12dp"
+                            android:paddingTop="12dp"
+                            app:srcCompat="@drawable/ic_person_black_24dp" />
+
                     </RelativeLayout>
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp" />
-
                     <View
-                        android:id="@+id/Separator2"
+                        android:id="@+id/BillSeparator2"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />
+
+                    <RelativeLayout
+                        android:id="@+id/TotalRelativeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/TotalText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:paddingBottom="20dp"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="20dp"
+                            android:text="Total: "
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/CurrencySymbolText3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/TotalText"
+                            android:text="$ "
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/TotalValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/CurrencySymbolText3"
+                            android:layout_weight="1"
+                            android:minEms="8"
+                            android:text="0.00"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/IndividualTotalRelativeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/PricePerPersonText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:paddingBottom="20dp"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="20dp"
+                            android:text="Price per person: "
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/CurrencySymbolText4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/PricePerPersonText"
+                            android:text="$ "
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/PricePerPersonValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/CurrencySymbolText4"
+                            android:layout_weight="1"
+                            android:minEms="8"
+                            android:text="0.00"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                    </RelativeLayout>
 
                     <Space
                         android:layout_width="match_parent"

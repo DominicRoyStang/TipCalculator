@@ -163,6 +163,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackgroundBorderless"
+                            android:onClick="onClick"
                             android:padding="12dp"
                             app:srcCompat="@drawable/ic_info_black_24dp" />
 

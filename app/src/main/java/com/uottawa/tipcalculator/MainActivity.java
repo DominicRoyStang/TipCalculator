@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.TipRelativeLayout:
                 displayTipDialog();
+                break;
+            case R.id.SuggestTipButton:
+                Toast.makeText(getApplicationContext(), "Suggest tip button pressed", Toast.LENGTH_SHORT).show();
+                displaySuggestTipDialog();
                 break;
             case R.id.PayersRelativeLayout:
                 displayPayersDialog();
@@ -146,6 +151,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //TODO
                 TextView tipPercentText = (TextView) findViewById(R.id.TipValue);
                 tipPercentText.setText(m_Text + " " + getResources().getString(R.string.percent_sign));
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void displaySuggestTipDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Rate your experience");
+        //builder.setCustomTitle()
+
+        // Set up the NumberPicker
+        final RatingBar ratingBar = new RatingBar(this);
+        ratingBar.setNumStars(5);
+
+        // Set up the NumberPicker's layout parameters
+        ViewGroup.LayoutParams ratingBarParams = new ViewGroup.LayoutParams
+                (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        //ratingBarParams.gravity = Gravity.CENTER;
+        ratingBar.setLayoutParams(ratingBarParams);
+
+        //Set up TextView
+        TextView percentText = new TextView(this);
+        percentText.setText(getResources().getString(R.string.percent_sign));
+        percentText.setTextSize(19);
+
+        // Set up the TextView's layout parameters
+        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        textParams.gravity = Gravity.CENTER;
+        percentText.setLayoutParams(textParams);
+
+        // Set up the LinearLayout
+        LinearLayout layout = new LinearLayout(this);
+
+        // Set up the LinearLayout's layout parameters
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.setGravity(Gravity.CENTER);
+        layout.setLayoutParams(params);
+
+        // Add the NumberPicker and TextView to the LinearLayout
+        layout.addView(ratingBar);
+        layout.addView(percentText);
+
+        // Set the View to the LinearLayout
+        builder.setView(layout);
+
+        //TextView defaultTip = (TextView) findViewById(R.id.TipPercentText);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                float m_Text = ratingBar.getRating();
+                //TODO
+                TextView tipPercentText = (TextView) findViewById(R.id.TipValue);
+                Toast.makeText(getApplicationContext(), m_Text + " Stars", Toast.LENGTH_SHORT).show();
+                //tipPercentText.setText(m_Text + " " + getResources().getString(R.string.percent_sign));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

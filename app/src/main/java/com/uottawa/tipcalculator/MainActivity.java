@@ -147,7 +147,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String m_Text = billText.getText().toString();
                 //TODO
                 TextView billValueText = (TextView) findViewById(R.id.BillValue);
+                TextView billValueText2 = (TextView) findViewById(R.id.BillValue2);
                 billValueText.setText(m_Text);
+                billValueText2.setText(m_Text);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -219,6 +221,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //TODO
                 TextView tipPercentText = (TextView) findViewById(R.id.TipValue);
                 tipPercentText.setText(m_Text + " " + getResources().getString(R.string.percent_sign));
+                TextView tipPercentText2 = (TextView) findViewById(R.id.TipValue2);
+                tipPercentText2.setText(m_Text + " " + "%" );
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -250,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final TextView percentText = new TextView(this);
         percentText.setText(getResources().getString(R.string.percent_sign));
         percentText.setTextSize(19);
-        percentText.setText("Recommended tip: " + ratingBar.getRating() + " " + getResources().getString(R.string.percent_sign));
+        percentText.setText("Recommended tip: " + (int) ratingBar.getRating() + " " + getResources().getString(R.string.percent_sign));
 
         // Set up the TextView's layout parameters
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams
@@ -278,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                percentText.setText("Recommended tip: " + ratingBar.getRating() + " " + getResources().getString(R.string.percent_sign));
+                percentText.setText("Recommended tip: " + calculateSuggestedTip(ratingBar.getRating()) + " " + getResources().getString(R.string.percent_sign));
             }
         });
 
@@ -286,12 +290,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                float m_Text = ratingBar.getRating();
+                int m_Text = (int) calculateSuggestedTip(ratingBar.getRating());
                 //TODO
                 TextView tipPercentText = (TextView) findViewById(R.id.TipValue);
                 percentText.setText("Recommended tip: " + m_Text + " " + getResources().getString(R.string.percent_sign));
-                Toast.makeText(getApplicationContext(), m_Text + " Stars", Toast.LENGTH_SHORT).show();
-                //tipPercentText.setText(m_Text + " " + getResources().getString(R.string.percent_sign));
+                //Toast.makeText(getApplicationContext(), m_Text + " Stars", Toast.LENGTH_SHORT).show();
+                tipPercentText.setText(m_Text + " " + getResources().getString(R.string.percent_sign));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -302,6 +306,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         builder.show();
+    }
+
+    private static int calculateSuggestedTip(float rating) {
+        return (int)(10 + (2 * rating));
     }
 
     private void displayPayersDialog(){
@@ -361,8 +369,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(DialogInterface dialog, int which) {
                 int m_Text = numberPicker.getValue();
                 //TODO
-                TextView tipPercentText = (TextView) findViewById(R.id.PayersValue);
-                tipPercentText.setText(m_Text + " ");
+                TextView payersText = (TextView) findViewById(R.id.PayersValue);
+                payersText.setText(m_Text + " ");
+                TextView payersText2 = (TextView) findViewById(R.id.PayersValue2);
+                payersText2.setText(m_Text + " ");
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -374,4 +384,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         builder.show();
     }
+
 }

@@ -150,7 +150,7 @@
                                 android:paddingBottom="20dp"
                                 android:paddingLeft="5dp"
                                 android:paddingTop="20dp"
-                                android:text="Tip:"
+                                android:text="Tip: "
                                 android:textColor="@color/colorPrimaryText"
                                 android:textSize="20sp" />
 
@@ -162,8 +162,19 @@
                                 android:layout_toRightOf="@+id/TipText"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
-                                android:paddingLeft="5dp"
-                                android:text="15 %"
+                                android:text="15"
+                                android:textColor="@color/colorPrimaryText"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:id="@+id/PercentSignText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/TipValue"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text=" %"
                                 android:textColor="@color/colorPrimaryText"
                                 android:textSize="20sp" />
 
@@ -210,7 +221,7 @@
                             android:paddingBottom="20dp"
                             android:paddingLeft="5dp"
                             android:paddingTop="20dp"
-                            android:text="Payers:"
+                            android:text="Payers: "
                             android:textColor="@color/colorPrimaryText"
                             android:textSize="20sp" />
 
@@ -222,8 +233,7 @@
                             android:layout_toRightOf="@+id/NumberOfPayersText"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:paddingLeft="5dp"
-                            android:text="1 "
+                            android:text="1"
                             android:textColor="@color/colorPrimaryText"
                             android:textSize="20sp" />
 
@@ -234,6 +244,7 @@
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@+id/PayersValue"
                             android:paddingBottom="12dp"
+                            android:paddingLeft="3dp"
                             android:paddingTop="12dp"
                             app:srcCompat="@drawable/ic_person_black_24dp" />
 
@@ -373,7 +384,7 @@
                                 android:paddingBottom="20dp"
                                 android:paddingLeft="5dp"
                                 android:paddingTop="20dp"
-                                android:text="Tip:"
+                                android:text="Tip: "
                                 android:textColor="@color/colorPrimaryText"
                                 android:textSize="20sp" />
 
@@ -385,8 +396,19 @@
                                 android:layout_toRightOf="@+id/TipText2"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
-                                android:paddingLeft="5dp"
-                                android:text="15 %"
+                                android:text="15"
+                                android:textColor="@color/colorPrimaryText"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:id="@+id/PercentSignText2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/TipValue2"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text=" %"
                                 android:textColor="@color/colorPrimaryText"
                                 android:textSize="20sp" />
 
@@ -412,7 +434,7 @@
                             android:paddingBottom="20dp"
                             android:paddingLeft="5dp"
                             android:paddingTop="20dp"
-                            android:text="Payers:"
+                            android:text="Payers: "
                             android:textColor="@color/colorPrimaryText"
                             android:textSize="20sp" />
 
@@ -424,8 +446,7 @@
                             android:layout_toRightOf="@+id/NumberOfPayersText2"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:paddingLeft="5dp"
-                            android:text="1 "
+                            android:text="1"
                             android:textColor="@color/colorPrimaryText"
                             android:textSize="20sp" />
 
@@ -436,6 +457,7 @@
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@+id/PayersValue2"
                             android:paddingBottom="12dp"
+                            android:paddingLeft="3dp"
                             android:paddingTop="12dp"
                             app:srcCompat="@drawable/ic_person_black_24dp" />
 

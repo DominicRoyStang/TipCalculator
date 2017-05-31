@@ -1,5 +1,6 @@
 package com.uottawa.tipcalculator;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -61,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(view.getId()){
             case R.id.BillRelativeLayout:
                 displayBillDialog();
-                Toast.makeText(getApplicationContext(), "BillRelativeLayout pressed", Toast.LENGTH_SHORT).show();
             break;
             case R.id.TipRelativeLayout:
                 displayTipDialog();
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Set up TextView
         final TextView currencySymbolText = new TextView(this);
+        //TODO
         currencySymbolText.setText(getResources().getString(R.string.dollar_sign));
         currencySymbolText.setTextSize(19);
         currencySymbolText.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryText));
@@ -113,6 +115,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         billText.setText("0.00");
         billText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         billText.setTextSize(19);
+        billText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         // Set up the EditText's layout parameters
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams
@@ -138,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Set the View to the LinearLayout
         builder.setView(layout);
 
-        //TextView defaultTip = (TextView) findViewById(R.id.TipPercentText);
 
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -160,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         builder.show();
+
     }
 
     private void displayTipDialog(){
@@ -220,9 +225,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int m_Text = numberPicker.getValue();
                 //TODO
                 TextView tipPercentText = (TextView) findViewById(R.id.TipValue);
-                tipPercentText.setText(m_Text + " " + getResources().getString(R.string.percent_sign));
+                tipPercentText.setText(Integer.toString(m_Text));
                 TextView tipPercentText2 = (TextView) findViewById(R.id.TipValue2);
-                tipPercentText2.setText(m_Text + " " + "%" );
+                tipPercentText2.setText(Integer.toString(m_Text));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -254,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final TextView percentText = new TextView(this);
         percentText.setText(getResources().getString(R.string.percent_sign));
         percentText.setTextSize(19);
-        percentText.setText("Recommended tip: " + (int) ratingBar.getRating() + " " + getResources().getString(R.string.percent_sign));
+        percentText.setText("Recommended tip: " + (int) calculateSuggestedTip(ratingBar.getRating()) + " " + getResources().getString(R.string.percent_sign));
 
         // Set up the TextView's layout parameters
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams
@@ -291,11 +296,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 int m_Text = (int) calculateSuggestedTip(ratingBar.getRating());
-                //TODO
-                TextView tipPercentText = (TextView) findViewById(R.id.TipValue);
                 percentText.setText("Recommended tip: " + m_Text + " " + getResources().getString(R.string.percent_sign));
-                //Toast.makeText(getApplicationContext(), m_Text + " Stars", Toast.LENGTH_SHORT).show();
-                tipPercentText.setText(m_Text + " " + getResources().getString(R.string.percent_sign));
+                TextView tipPercentText = (TextView) findViewById(R.id.TipValue);
+                tipPercentText.setText(Integer.toString(m_Text));
+                TextView tipPercentText2 = (TextView) findViewById(R.id.TipValue2);
+                tipPercentText2.setText(Integer.toString(m_Text));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -370,9 +375,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int m_Text = numberPicker.getValue();
                 //TODO
                 TextView payersText = (TextView) findViewById(R.id.PayersValue);
-                payersText.setText(m_Text + " ");
+                payersText.setText(Integer.toString(m_Text));
                 TextView payersText2 = (TextView) findViewById(R.id.PayersValue2);
-                payersText2.setText(m_Text + " ");
+                payersText2.setText(Integer.toString(m_Text));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

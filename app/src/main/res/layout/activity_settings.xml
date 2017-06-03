@@ -65,7 +65,7 @@
                         android:paddingTop="20dp">
 
                         <TextView
-                            android:id="@+id/TipText"
+                            android:id="@+id/DefaultTipText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -77,14 +77,26 @@
                             android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/TipPercentText"
+                            android:id="@+id/DefaultTipValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/TipPercentSymbol"
+                            android:layout_weight="1"
+                            android:paddingLeft="5dp"
+                            android:text="15"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/TipPercentSymbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
                             android:paddingLeft="5dp"
-                            android:text="15 %"
+                            android:text=" %"
                             android:textColor="@color/colorPrimaryText"
                             android:textSize="20sp" />
                     </RelativeLayout>
@@ -105,7 +117,7 @@
                         android:paddingTop="20dp">
 
                         <TextView
-                            android:id="@+id/TipText"
+                            android:id="@+id/CurrencyText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"

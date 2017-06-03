@@ -1,7 +1,9 @@
 package com.uottawa.tipcalculator;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -53,6 +55,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         payersLayoutButton.setBackgroundResource(backgroundResource);
         typedArray.recycle();
 
+        // Apply User Settings
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.PREFERENCE_FILE_KEY), MODE_PRIVATE);
+        String defaultTip = preferences.getString(getString(R.string.PREFERENCE_DEFAULT_TIP_KEY), "15");
+        String currency = preferences.getString(getString(R.string.PREFERENCE_CURRENCY_KEY), getString(R.string.dollar_sign));
+
+        ((TextView) findViewById(R.id.TipValue)).setText(defaultTip);
+        ((TextView) findViewById(R.id.TipValue2)).setText(defaultTip);
+        ((TextView) findViewById(R.id.CurrencySymbolText)).setText(currency + " ");
+        ((TextView) findViewById(R.id.CurrencySymbolText2)).setText(currency + " ");
+        ((TextView) findViewById(R.id.CurrencySymbolText3)).setText(currency + " ");
+        ((TextView) findViewById(R.id.CurrencySymbolText4)).setText(currency + " ");
+
     }
 
     @Override
@@ -103,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Set up TextView
         final TextView currencySymbolText = new TextView(this);
-        //TODO
-        currencySymbolText.setText(getResources().getString(R.string.dollar_sign));
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.PREFERENCE_FILE_KEY), Context.MODE_PRIVATE);
+        currencySymbolText.setText(sharedPreferences.getString(getString(R.string.PREFERENCE_CURRENCY_KEY), getString(R.string.dollar_sign)));
         currencySymbolText.setTextSize(19);
         currencySymbolText.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryText));
 
@@ -403,7 +417,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         float numPersons = Float.parseFloat(((TextView) findViewById(R.id.PayersValue)).getText().toString());
         float totalValue = billValue * (1 + tipValue/100);
 
-        Toast.makeText(getApplicationContext(), "BillValue: " + tipValue + ";tipValue: " + tipValue + ";numPersons: " + numPersons, Toast.LENGTH_SHORT).show();
         DecimalFormat decimal = new DecimalFormat("###.##");
 
         ((TextView) findViewById(R.id.TotalValue)).setText(decimal.format(totalValue));

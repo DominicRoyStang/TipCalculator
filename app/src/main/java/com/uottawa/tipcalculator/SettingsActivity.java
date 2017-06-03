@@ -1,6 +1,8 @@
 package com.uottawa.tipcalculator;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -31,8 +33,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Find our "layout buttons"
-        RelativeLayout defaultTip = (RelativeLayout) findViewById(R.id.DefaultTip);
-        RelativeLayout currency = (RelativeLayout) findViewById(R.id.Currency);
+        RelativeLayout defaultTipButton = (RelativeLayout) findViewById(R.id.DefaultTip);
+        RelativeLayout currencyButton = (RelativeLayout) findViewById(R.id.Currency);
 
         // Create background
         final int[] attrs = new int[]{R.attr.selectableItemBackground};
@@ -40,9 +42,17 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         final int backgroundResource = typedArray.getResourceId(0, 0);
 
         // Apply background to our "layout buttons" (for when they are pressed)
-        defaultTip.setBackgroundResource(backgroundResource);
-        currency.setBackgroundResource(backgroundResource);
+        defaultTipButton.setBackgroundResource(backgroundResource);
+        currencyButton.setBackgroundResource(backgroundResource);
         typedArray.recycle();
+
+        // Apply User Settings
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.PREFERENCE_FILE_KEY), MODE_PRIVATE);
+        String defaultTip = preferences.getString(getString(R.string.PREFERENCE_DEFAULT_TIP_KEY), "15");
+        String currency = preferences.getString(getString(R.string.PREFERENCE_CURRENCY_KEY), getString(R.string.dollar_sign));
+
+        ((TextView) findViewById(R.id.DefaultTipValue)).setText(defaultTip);
+        ((TextView) findViewById(R.id.CurrencySymbolText)).setText(" " + currency);
 
     }
 
@@ -51,7 +61,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         Toast savedToast = Toast.makeText(getApplicationContext(), "Saved Settings", Toast.LENGTH_SHORT);
         savedToast.setGravity(Gravity.BOTTOM, 0, 10);
         savedToast.show();
-
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.PREFERENCE_FILE_KEY), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(getString(R.string.PREFERENCE_DEFAULT_TIP_KEY),((TextView) findViewById(R.id.DefaultTipValue)).getText().toString());
+        editor.putString(getString(R.string.PREFERENCE_CURRENCY_KEY), ((TextView) findViewById(R.id.CurrencySymbolText)).getText().toString());
+        editor.apply();
         super.onBackPressed();
     }
 
@@ -60,7 +74,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         Toast savedToast = Toast.makeText(getApplicationContext(), "Saved Settings", Toast.LENGTH_SHORT);
         savedToast.setGravity(Gravity.BOTTOM, 0, 10);
         savedToast.show();
-
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.PREFERENCE_FILE_KEY), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(getString(R.string.PREFERENCE_DEFAULT_TIP_KEY),((TextView) findViewById(R.id.DefaultTipValue)).getText().toString());
+        editor.putString(getString(R.string.PREFERENCE_CURRENCY_KEY), ((TextView) findViewById(R.id.CurrencySymbolText)).getText().toString());
+        editor.apply();
         return super.onSupportNavigateUp();
     }
 
@@ -87,7 +105,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         numberPicker.setDisplayedValues(null);
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(200);
-        numberPicker.setValue(15);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.PREFERENCE_FILE_KEY), MODE_PRIVATE);
+        String defaultTip = preferences.getString(getString(R.string.PREFERENCE_DEFAULT_TIP_KEY), "15");
+        numberPicker.setValue(Integer.parseInt(defaultTip));
         //numberPicker.setDisplayedValues(values);
         //numberPicker.setValue(Integer.parseInt(values[1]));
 
@@ -133,8 +153,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             public void onClick(DialogInterface dialog, int which) {
                 int m_Text = numberPicker.getValue();
                 //TODO
-                TextView tipPercentText = (TextView) findViewById(R.id.TipPercentText);
-                tipPercentText.setText(m_Text + " " + getResources().getString(R.string.percent_sign));
+                TextView tipPercentText = (TextView) findViewById(R.id.DefaultTipValue);
+                tipPercentText.setText(Integer.toString(m_Text));
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

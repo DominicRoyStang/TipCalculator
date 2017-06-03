@@ -324,7 +324,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/BillText2"
+                            android:id="@+id/textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -342,7 +342,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/BillText2"
+                            android:layout_toRightOf="@+id/textView"
                             android:text="$ "
                             android:textColor="@color/colorPrimaryText"
                             android:textSize="20sp" />

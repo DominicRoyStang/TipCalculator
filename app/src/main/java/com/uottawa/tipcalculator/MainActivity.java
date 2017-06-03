@@ -85,11 +85,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
         switch (id) {
             case R.id.menu_settings:
-                Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(myIntent);
+                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(settingsIntent);
                 break;
             case R.id.menu_about:
-                Toast.makeText(getApplicationContext(), "You pressed the About button", Toast.LENGTH_SHORT).show();
+                Intent aboutIntent = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(aboutIntent);
                 break;
         }
         return true;

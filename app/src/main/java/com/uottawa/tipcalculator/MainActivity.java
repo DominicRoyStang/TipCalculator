@@ -1,6 +1,5 @@
 package com.uottawa.tipcalculator;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -9,19 +8,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
@@ -119,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         billText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         billText.setTextSize(19);
         billText.requestFocus();
-        billText.setShowSoftInputOnFocus(true);
 
         // Set up the EditText's layout parameters
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams

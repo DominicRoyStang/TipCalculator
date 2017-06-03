@@ -1,6 +1,5 @@
 package com.uottawa.tipcalculator;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.support.v7.app.ActionBar;
@@ -47,6 +46,23 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast savedToast = Toast.makeText(getApplicationContext(), "Saved Settings", Toast.LENGTH_SHORT);
+        savedToast.setGravity(Gravity.BOTTOM, 0, 10);
+        savedToast.show();
+
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        Toast savedToast = Toast.makeText(getApplicationContext(), "Saved Settings", Toast.LENGTH_SHORT);
+        savedToast.setGravity(Gravity.BOTTOM, 0, 10);
+        savedToast.show();
+
+        return super.onSupportNavigateUp();
+    }
 
     @Override
     public void onClick(View view) {
@@ -58,11 +74,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 displayCurrencyDialog(view);
                 break;
         }
-    }
-
-    private void showDialog() {
-        Dialog dialog = new Dialog(this);
-        //Dialog.setContentView(R.layout.tip_spinner);
     }
 
     private void displayTipDialog(View view){

@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,8 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -112,18 +115,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Set up EditText
         final EditText billText = new EditText(this);
-        billText.setText("0.00");
+        billText.setText(((TextView) findViewById(R.id.BillValue)).getText().toString());
         billText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         billText.setTextSize(19);
         billText.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        billText.setShowSoftInputOnFocus(true);
 
         // Set up the EditText's layout parameters
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         textParams.gravity = Gravity.CENTER;
         billText.setLayoutParams(textParams);
+        billText.addTextChangedListener(new CurrencyTextWatcher());
 
         // Set up the LinearLayout
         LinearLayout layout = new LinearLayout(this);
@@ -144,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setView(layout);
 
 
+
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -154,6 +158,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TextView billValueText2 = (TextView) findViewById(R.id.BillValue2);
                 billValueText.setText(m_Text);
                 billValueText2.setText(m_Text);
+
+                updateTotals();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -163,8 +169,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        builder.show();
-
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.show();
     }
 
     private void displayTipDialog(){
@@ -178,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         numberPicker.setDisplayedValues(null);
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(200);
-        numberPicker.setValue(15);
+        numberPicker.setValue(Integer.parseInt(((TextView) findViewById(R.id.TipValue)).getText().toString()));
         //numberPicker.setDisplayedValues(values);
         //numberPicker.setValue(Integer.parseInt(values[1]));
 
@@ -228,6 +235,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tipPercentText.setText(Integer.toString(m_Text));
                 TextView tipPercentText2 = (TextView) findViewById(R.id.TipValue2);
                 tipPercentText2.setText(Integer.toString(m_Text));
+
+                updateTotals();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -301,6 +310,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tipPercentText.setText(Integer.toString(m_Text));
                 TextView tipPercentText2 = (TextView) findViewById(R.id.TipValue2);
                 tipPercentText2.setText(Integer.toString(m_Text));
+
+                updateTotals();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -328,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         numberPicker.setDisplayedValues(null);
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(200);
-        numberPicker.setValue(1);
+        numberPicker.setValue(Integer.parseInt(((TextView) findViewById(R.id.PayersValue)).getText().toString()));
         //numberPicker.setDisplayedValues(values);
         //numberPicker.setValue(Integer.parseInt(values[1]));
 
@@ -378,6 +389,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 payersText.setText(Integer.toString(m_Text));
                 TextView payersText2 = (TextView) findViewById(R.id.PayersValue2);
                 payersText2.setText(Integer.toString(m_Text));
+
+                updateTotals();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -388,6 +401,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         builder.show();
+    }
+
+    private void updateTotals() {
+        float billValue = Float.parseFloat(((TextView) findViewById(R.id.BillValue)).getText().toString());
+        float tipValue = Float.parseFloat(((TextView) findViewById(R.id.TipValue)).getText().toString());
+        float numPersons = Float.parseFloat(((TextView) findViewById(R.id.PayersValue)).getText().toString());
+        float totalValue = billValue * (1 + tipValue/100);
+
+        Toast.makeText(getApplicationContext(), "BillValue: " + tipValue + ";tipValue: " + tipValue + ";numPersons: " + numPersons, Toast.LENGTH_SHORT).show();
+        DecimalFormat decimal = new DecimalFormat("###.##");
+
+        ((TextView) findViewById(R.id.TotalValue)).setText(decimal.format(totalValue));
+        ((TextView) findViewById(R.id.PricePerPersonValue)).setText(decimal.format(totalValue/numPersons));
     }
 
 }

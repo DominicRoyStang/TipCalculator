@@ -24,7 +24,6 @@ import android.widget.NumberPicker;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setCustomView(R.layout.mainmenu_layout);
 
         // Find our "Layout Buttons"
-        RelativeLayout billLayoutButton = (RelativeLayout) findViewById(R.id.BillRelativeLayout);
+        RelativeLayout priceLayoutButton = (RelativeLayout) findViewById(R.id.PriceRelativeLayout);
         RelativeLayout tipLayoutButton = (RelativeLayout) findViewById(R.id.TipRelativeLayout);
         RelativeLayout payersLayoutButton = (RelativeLayout) findViewById(R.id.PayersRelativeLayout);
 
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final int backgroundResource = typedArray.getResourceId(0, 0);
 
         // Apply background to our "layout buttons" (for when they are pressed)
-        billLayoutButton.setBackgroundResource(backgroundResource);
+        priceLayoutButton.setBackgroundResource(backgroundResource);
         tipLayoutButton.setBackgroundResource(backgroundResource);
         payersLayoutButton.setBackgroundResource(backgroundResource);
         typedArray.recycle();
@@ -72,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch(view.getId()){
-            case R.id.BillRelativeLayout:
-                displayBillDialog();
+            case R.id.PriceRelativeLayout:
+                displayPriceDialog();
             break;
             case R.id.TipRelativeLayout:
                 displayTipDialog();
@@ -110,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    private void displayBillDialog(){
+    private void displayPriceDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Set the total price of the bill");
         //builder.setCustomTitle()
@@ -123,18 +122,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currencySymbolText.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryText));
 
         // Set up EditText
-        final EditText billText = new EditText(this);
-        billText.setText(((TextView) findViewById(R.id.BillValue)).getText().toString());
-        billText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        billText.setTextSize(19);
-        billText.requestFocus();
+        final EditText priceText = new EditText(this);
+        priceText.setText(((TextView) findViewById(R.id.PriceValue)).getText().toString());
+        priceText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        priceText.setTextSize(19);
+        priceText.requestFocus();
 
         // Set up the EditText's layout parameters
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         textParams.gravity = Gravity.CENTER;
-        billText.setLayoutParams(textParams);
-        billText.addTextChangedListener(new CurrencyTextWatcher());
+        priceText.setLayoutParams(textParams);
+        priceText.addTextChangedListener(new CurrencyTextWatcher());
 
         // Set up the LinearLayout
         LinearLayout layout = new LinearLayout(this);
@@ -149,23 +148,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Add the EditText and TextView to the LinearLayout
         layout.addView(currencySymbolText);
-        layout.addView(billText);
+        layout.addView(priceText);
 
         // Set the View to the LinearLayout
         builder.setView(layout);
-
 
 
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String m_Text = billText.getText().toString();
+                String m_Text = priceText.getText().toString();
                 //TODO
-                TextView billValueText = (TextView) findViewById(R.id.BillValue);
-                TextView billValueText2 = (TextView) findViewById(R.id.BillValue2);
-                billValueText.setText(m_Text);
-                billValueText2.setText(m_Text);
+                TextView priceValueText = (TextView) findViewById(R.id.PriceValue);
+                TextView priceValueText2 = (TextView) findViewById(R.id.PriceValue2);
+                priceValueText.setText(m_Text);
+                priceValueText2.setText(m_Text);
 
                 updateTotals();
             }
@@ -412,10 +410,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateTotals() {
-        float billValue = Float.parseFloat(((TextView) findViewById(R.id.BillValue)).getText().toString());
+        float priceValue = Float.parseFloat(((TextView) findViewById(R.id.PriceValue)).getText().toString());
         float tipValue = Float.parseFloat(((TextView) findViewById(R.id.TipValue)).getText().toString());
         float numPersons = Float.parseFloat(((TextView) findViewById(R.id.PayersValue)).getText().toString());
-        float totalValue = billValue * (1 + tipValue/100);
+        float totalValue = priceValue * (1 + tipValue/100);
 
         DecimalFormat decimal = new DecimalFormat("###.##");
 

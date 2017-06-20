@@ -10,5 +10,5 @@ How to run this app:
 1. Have an android phone or emulator running.
 2. Make sure your device allows the installation of apps from unknown sources
 3. Open the apk file from your phone or emulator (you can send it by email).
-	apk location: app > build > outputs > apk > app-debug.apk
+	apk location: docs > app-debug.apk
 2. Find TipCalculator in the app drawer, and enjoy the app!

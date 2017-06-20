@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RelativeLayout tipLayoutButton = (RelativeLayout) findViewById(R.id.TipRelativeLayout);
         RelativeLayout payersLayoutButton = (RelativeLayout) findViewById(R.id.PayersRelativeLayout);
 
-        // Create background
+        // Create background resource for when the "layout buttons" are pressed
         final int[] attrs = new int[]{R.attr.selectableItemBackground};
         final TypedArray typedArray = this.obtainStyledAttributes(attrs);
         final int backgroundResource = typedArray.getResourceId(0, 0);
@@ -69,26 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.PriceRelativeLayout:
-                displayPriceDialog();
-            break;
-            case R.id.TipRelativeLayout:
-                displayTipDialog();
-                break;
-            case R.id.SuggestTipButton:
-                displaySuggestTipDialog();
-                break;
-            case R.id.PayersRelativeLayout:
-                displayPayersDialog();
-                break;
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the overflow menu (on the actionbar).
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -109,10 +91,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.PriceRelativeLayout:
+                displayPriceDialog();
+                break;
+            case R.id.TipRelativeLayout:
+                displayTipDialog();
+                break;
+            case R.id.SuggestTipButton:
+                displaySuggestTipDialog();
+                break;
+            case R.id.PayersRelativeLayout:
+                displayPayersDialog();
+                break;
+        }
+    }
+
     private void displayPriceDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Set the total price of the bill");
-        //builder.setCustomTitle()
 
         // Set up TextView
         final TextView currencySymbolText = new TextView(this);
@@ -159,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String m_Text = priceText.getText().toString();
-                //TODO
+
                 TextView priceValueText = (TextView) findViewById(R.id.PriceValue);
                 TextView priceValueText2 = (TextView) findViewById(R.id.PriceValue2);
                 priceValueText.setText(m_Text);
@@ -176,24 +175,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         AlertDialog dialog = builder.create();
+
+        // Ensure the keyboard is displayed with the dialog window
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         dialog.show();
     }
 
     private void displayTipDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Set the tip");
-        //builder.setCustomTitle()
 
         // Set up the NumberPicker
         final NumberPicker numberPicker = new NumberPicker(this);
-        //String[] values = {"1","2","3"};
         numberPicker.setDisplayedValues(null);
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(200);
         numberPicker.setValue(Integer.parseInt(((TextView) findViewById(R.id.TipValue)).getText().toString()));
-        //numberPicker.setDisplayedValues(values);
-        //numberPicker.setValue(Integer.parseInt(values[1]));
 
         // Set up the NumberPicker's layout parameters
         LinearLayout.LayoutParams pickerParams = new LinearLayout.LayoutParams
@@ -258,13 +256,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void displaySuggestTipDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Rate your experience");
-        //builder.setCustomTitle()
 
-        // Set up the NumberPicker
+        // Set up the RatingBar
         final RatingBar ratingBar = new RatingBar(this);
         ratingBar.setNumStars(5);
 
-        // Set up the NumberPicker's layout parameters
+        // Set up the RatingBar's layout parameters
         ViewGroup.LayoutParams ratingBarParams = new ViewGroup.LayoutParams
                 (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         //ratingBarParams.gravity = Gravity.CENTER;
@@ -292,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         layout.setGravity(Gravity.CENTER);
         layout.setLayoutParams(params);
 
-        // Add the NumberPicker and TextView to the LinearLayout
+        // Add the RatingBar and TextView to the LinearLayout
         layout.addView(ratingBar);
         layout.addView(percentText);
 
@@ -312,6 +309,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(DialogInterface dialog, int which) {
                 int m_Text = (int) calculateSuggestedTip(ratingBar.getRating());
                 percentText.setText("Recommended tip: " + m_Text + " " + getResources().getString(R.string.percent_sign));
+
                 TextView tipPercentText = (TextView) findViewById(R.id.TipValue);
                 tipPercentText.setText(Integer.toString(m_Text));
                 TextView tipPercentText2 = (TextView) findViewById(R.id.TipValue2);
@@ -337,17 +335,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void displayPayersDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Split the bill");
-        //builder.setCustomTitle()
 
         // Set up the NumberPicker
         final NumberPicker numberPicker = new NumberPicker(this);
-        //String[] values = {"1","2","3"};
         numberPicker.setDisplayedValues(null);
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(200);
         numberPicker.setValue(Integer.parseInt(((TextView) findViewById(R.id.PayersValue)).getText().toString()));
-        //numberPicker.setDisplayedValues(values);
-        //numberPicker.setValue(Integer.parseInt(values[1]));
 
         // Set up the NumberPicker's layout parameters
         LinearLayout.LayoutParams pickerParams = new LinearLayout.LayoutParams
@@ -383,14 +377,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Set the View to the LinearLayout
         builder.setView(layout);
 
-        //TextView defaultTip = (TextView) findViewById(R.id.TipPercentText);
 
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 int m_Text = numberPicker.getValue();
-                //TODO
+
                 TextView payersText = (TextView) findViewById(R.id.PayersValue);
                 payersText.setText(Integer.toString(m_Text));
                 TextView payersText2 = (TextView) findViewById(R.id.PayersValue2);
@@ -415,7 +408,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         float numPersons = Float.parseFloat(((TextView) findViewById(R.id.PayersValue)).getText().toString());
         float totalValue = priceValue * (1 + tipValue/100);
 
-        DecimalFormat decimal = new DecimalFormat("###.##");
+        DecimalFormat decimal = new DecimalFormat("###.##"); // Used to ensure that dollar values only go up to two decimal points
 
         ((TextView) findViewById(R.id.TotalValue)).setText(decimal.format(totalValue));
         ((TextView) findViewById(R.id.PricePerPersonValue)).setText(decimal.format(totalValue/numPersons));

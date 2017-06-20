@@ -92,7 +92,6 @@
                         android:layout_height="20dp" />
 
                     <View
-                        android:id="@+id/view"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />
@@ -123,7 +122,6 @@
                         android:layout_height="20dp" />
 
                     <View
-                        android:id="@+id/view2"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />
@@ -154,7 +152,6 @@
                         android:layout_height="20dp" />
 
                     <View
-                        android:id="@+id/view3"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />
@@ -185,7 +182,6 @@
                         android:layout_height="20dp" />
 
                     <View
-                        android:id="@+id/view4"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />
@@ -216,7 +212,6 @@
                         android:layout_height="20dp" />
 
                     <View
-                        android:id="@+id/view5"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />
@@ -247,7 +242,6 @@
                         android:layout_height="20dp" />
 
                     <View
-                        android:id="@+id/view6"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />
@@ -357,7 +351,6 @@
                         android:layout_height="20dp" />
 
                     <View
-                        android:id="@+id/view8"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ColorDivider" />

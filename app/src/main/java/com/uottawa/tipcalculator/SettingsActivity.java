@@ -58,28 +58,28 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
-        Toast savedToast = Toast.makeText(getApplicationContext(), "Saved Settings", Toast.LENGTH_SHORT);
-        savedToast.setGravity(Gravity.BOTTOM, 0, 10);
-        savedToast.show();
-        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.PREFERENCE_FILE_KEY), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(getString(R.string.PREFERENCE_DEFAULT_TIP_KEY),((TextView) findViewById(R.id.DefaultTipValue)).getText().toString());
-        editor.putString(getString(R.string.PREFERENCE_CURRENCY_KEY), ((TextView) findViewById(R.id.CurrencySymbolText)).getText().toString());
-        editor.apply();
+        saveSettings();
         super.onBackPressed();
     }
 
     @Override
     public boolean onSupportNavigateUp() {
+        saveSettings();
+        return super.onSupportNavigateUp();
+    }
+
+    private void saveSettings() {
+        // Show "Saved" toast
         Toast savedToast = Toast.makeText(getApplicationContext(), "Saved Settings", Toast.LENGTH_SHORT);
         savedToast.setGravity(Gravity.BOTTOM, 0, 10);
         savedToast.show();
+
+        // Save the settings to the key-value storage
         SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.PREFERENCE_FILE_KEY), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(getString(R.string.PREFERENCE_DEFAULT_TIP_KEY),((TextView) findViewById(R.id.DefaultTipValue)).getText().toString());
         editor.putString(getString(R.string.PREFERENCE_CURRENCY_KEY), ((TextView) findViewById(R.id.CurrencySymbolText)).getText().toString());
         editor.apply();
-        return super.onSupportNavigateUp();
     }
 
     @Override
